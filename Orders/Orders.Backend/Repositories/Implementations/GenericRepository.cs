@@ -35,9 +35,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
     }
 
-    public virtual async Task<ActionResponse<T>> DeleteAsync(int Id)
+    public virtual async Task<ActionResponse<T>> DeleteAsync(int id)
     {
-        var row = await _entity.FindAsync(Id);
+        var row = await _entity.FindAsync(id);
 
         if (row is null)
         {
@@ -57,15 +57,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
     }
 
-    public virtual async Task<ActionResponse<T>> GetAsync(int Id)
+    public virtual async Task<ActionResponse<T>> GetAsync(int id)
     {
-        var row = await _entity.FindAsync(Id); //Busca una fila con la PrimariKey pasada por parámetro
-
-        if (row is null)
-        {
-            return new ActionResponse<T> { WasSucces = false, Message = "Registro no encontrado." };
-        }
-
+        var row = await _entity.FindAsync(id);
+        if (row is null) return new ActionResponse<T> { WasSucces = false, Message = "Registro no encontrado." };
         return new ActionResponse<T> { WasSucces = true, Result = row };
     }
 
