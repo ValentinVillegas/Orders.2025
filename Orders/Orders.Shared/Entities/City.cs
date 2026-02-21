@@ -3,15 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Orders.Shared.Entities;
 
-public class Country : IEntityWithName
+public class City : IEntityWithName
 {
     public int Id { get; set; }
 
-    [Display(Name = "País")]
+    [Display(Name = "Ciudad")]
     [MaxLength(100, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
-    [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+    [Required(ErrorMessage = "El campo {0} es requerido.")]
     public string Name { get; set; } = null!;
 
-    public ICollection<State>? States { get; set; }
-    public int StatesNumber => States == null ? 0 : States.Count;
+    public int StateId { get; set; }
+    public State? State { get; set; }
 }
