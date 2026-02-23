@@ -10,8 +10,27 @@ namespace Orders.Backend.Controllers;
 [Route("api/[controller]")]
 public class CountriesController : GenericController<Country>
 {
-    public CountriesController(IGenericUnitOfWork<Country> unitOfWork) : base(unitOfWork)
+    private readonly ICountriesUnitOfWork _countriesUnitOfWork;
+
+    public CountriesController(IGenericUnitOfWork<Country> unitOfWork, ICountriesUnitOfWork countriesUnitOfWork) : base(unitOfWork)
     {
+        _countriesUnitOfWork = countriesUnitOfWork;
+    }
+
+    [HttpGet]
+    public override async Task<IActionResult> GetAsync()
+    {
+        var action = await _countriesUnitOfWork.GetAsync();
+        if (action.WasSucces) return Ok(action.Result);
+        return BadRequest(action.Message);
+    }
+
+    [HttpGet("{id}")]
+    public override async Task<IActionResult> GetAsync(int id)
+    {
+        var action = await _countriesUnitOfWork.GetAsync(id);
+        if (action.WasSucces) return Ok(action.Result);
+        return BadRequest(action.Message);
     }
 }
 
