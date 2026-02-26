@@ -1,4 +1,5 @@
-﻿using Orders.Shared.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Orders.Shared.Entities;
 
 namespace Orders.Backend.Data;
 
@@ -14,8 +15,18 @@ public class SeedDB
     public async Task SeedDBAsync()
     {
         await _context.Database.EnsureCreatedAsync(); //Crea la base de datos
+        await CheckCountriesFullAsync(); //Agrega paises a la base de datos
         await CheckCountriesAsync(); //Agrega paises a la base de datos
         await CheckCategoriesAsync(); //Agrega categorias ala base de datos
+    }
+
+    public async Task CheckCountriesFullAsync()
+    {
+        if (!_context.Countries.Any())
+        {
+            var scriptSQL = File.ReadAllText("Data\\CountriesStatesCities.sql");
+            await _context.Database.ExecuteSqlRawAsync(scriptSQL);
+        }
     }
 
     public async Task CheckCountriesAsync()

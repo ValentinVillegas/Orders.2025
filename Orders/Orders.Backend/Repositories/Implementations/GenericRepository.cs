@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Orders.Backend.Data;
+using Orders.Backend.Helpers;
 using Orders.Backend.Repositories.Interfaces;
+using Orders.Shared.DTOs;
 using Orders.Shared.Responses;
 
 namespace Orders.Backend.Repositories.Implementations;
@@ -39,10 +41,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         var row = await _entity.FindAsync(id);
 
-        if (row is null)
-        {
-            return new ActionResponse<T> { WasSucces = false, Message = "Registro no encontrado." };
-        }
+        if (row is null) return new ActionResponse<T> { WasSucces = false, Message = "Registro no encontrado." };
 
         _entity.Remove(row);
 
@@ -55,6 +54,28 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         {
             return new ActionResponse<T> { WasSucces = false, Message = "El elemento cuenta con registros relacionados. No se puede eliminar." };
         }
+    }
+
+    public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination)
+    {
+        var queryable = _entity.AsQueryable();
+
+        return new ActionResponse<IEnumerable<T>>
+        {
+            WasSucces = true,
+            Result = await queryable.Paginate(pagination).ToListAsync()
+        };
+    }
+
+    public virtual async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
+    {
+        var queryable = _entity.AsQueryable();
+        double count = await queryable.CountAsync();
+        return new ActionResponse<int>
+        {
+            WasSucces = true,
+            Result = (int)count
+        };
     }
 
     public virtual async Task<ActionResponse<T>> GetAsync(int id)
