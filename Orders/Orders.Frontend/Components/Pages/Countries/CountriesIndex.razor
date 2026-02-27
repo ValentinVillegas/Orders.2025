@@ -2,4 +2,11 @@
 
 <h3>CountriesIndex</h3>
 
-
+@if(countries is null)
+{
+    <Loading Label="Cargando países. Por favor espere..." />
+}
+else
+{
+    <p>Pintar lista</p>
+}

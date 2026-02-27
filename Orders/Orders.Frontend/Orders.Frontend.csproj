@@ -16,4 +16,16 @@
   <ItemGroup>
     <ProjectReference Include="..\Orders.Shared\Orders.Shared.csproj" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="wwwroot\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
