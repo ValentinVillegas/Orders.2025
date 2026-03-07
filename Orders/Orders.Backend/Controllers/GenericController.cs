@@ -61,10 +61,10 @@ public class GenericController<T> : Controller where T : class
         return BadRequest(action.Message);
     }
 
-    [HttpDelete]
-    public virtual async Task<IActionResult> DeleteAsync(int Id)
+    [HttpDelete("{id}")]
+    public virtual async Task<IActionResult> DeleteAsync(int id)
     {
-        var action = await _unitOfWork.DeleteAsync(Id);
+        var action = await _unitOfWork.DeleteAsync(id);
         if (action.WasSucces) return NoContent();
         return BadRequest(action.Message);
     }
