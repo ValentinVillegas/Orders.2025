@@ -1,30 +1,30 @@
-﻿@page "/countries"
+﻿@page "/categories"
 
 @if (loading)
 {
-    <Loading />
+    <Loading/>
 }
 else
 {
-    <MudTable Items="@countries" @ref="table" ServerData="LoadListAsync" Dense="true" Hover="true" Striped="true" FixedHeader="true" FixedFooter="true">
+    <MudTable Items="@categories" @ref="table" ServerData="LoadListAsync" Dense="true" Hover="true" Striped="true" FixedHeader="true" FixedFooter="true">
         <ToolBarContent>
             <div class="d-flex justify-content-between">
-                <MudText Typo="Typo.h6" Class="me-4">Países</MudText>
+                <MudText Typo="Typo.h6" Class="me-4">Categorías</MudText>
                 <MudButton Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Add" Color="Color.Info" OnClick="@(() => ShowModalAsync())">Nuevo</MudButton>
             </div>
             <MudSpacer />
-            <FilterComponent ApplyFilter="SetFilterValue" />
+            <FilterComponent ApplyFilter="SetFilterValue"/>
         </ToolBarContent>
 
         <HeaderContent>
             <MudTh>Nombre</MudTh>
-            <MudTh style="width: 100px;">Estados</MudTh>
+            <MudTh style="width: 100px;">Productos</MudTh>
             <MudTh style="width: 270px;">Acciones</MudTh>
         </HeaderContent>
 
         <RowTemplate>
             <MudTd>@context.Name</MudTd>
-            <MudTd>@context.StatesNumber</MudTd>
+            <MudTd>@context.Id</MudTd>
             <MudTd>
                 <MudTooltip Text="Editar">
                     <MudButton Variant="Variant.Filled" Color="Color.Warning" OnClick="@(() => ShowModalAsync(context.Id, true))">
