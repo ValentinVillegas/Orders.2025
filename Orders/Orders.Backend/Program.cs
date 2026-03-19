@@ -29,6 +29,8 @@ builder.Services.AddScoped(typeof(IStatesUnitOfWork), typeof(StatesUnitOfWork));
 builder.Services.AddScoped(typeof(IStatesRepository), typeof(StatesRepository));
 builder.Services.AddScoped(typeof(ICitiesUnitOfWork), typeof(CitiesUnitOfWork));
 builder.Services.AddScoped(typeof(ICitiesRepository), typeof(CitiesRepository));
+builder.Services.AddScoped(typeof(ICategoriesUnitOfWork), typeof(CategoriesUnitOfWork));
+builder.Services.AddScoped(typeof(ICategoriesRepository), typeof(CategoriesRepository));
 
 var app = builder.Build();
 

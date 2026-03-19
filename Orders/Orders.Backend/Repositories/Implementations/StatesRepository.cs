@@ -20,32 +20,52 @@ public class StatesRepository : GenericRepository<State>, IStatesRepository
     public override async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
     {
         var queryable = _context.States.Where(x => x.CountryId == pagination.Id).AsQueryable();
+
+        if (!string.IsNullOrEmpty(pagination.Filter)) queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+
         double count = await queryable.CountAsync();
-        return new ActionResponse<int> { WasSucces = true, Result = (int)count };
+
+        return new ActionResponse<int>
+        {
+            WasSucces = true,
+            Result = (int)count
+        };
     }
 
     public override async Task<ActionResponse<IEnumerable<State>>> GetAsync(PaginationDTO pagination)
     {
         var queryable = _context.States.Include(x => x.Cities).Where(x => x.CountryId == pagination.Id).AsQueryable();
+
+        if (!string.IsNullOrEmpty(pagination.Filter)) queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+
         return new ActionResponse<IEnumerable<State>>
         {
             WasSucces = true,
-            Result = await queryable.OrderBy(x => x.Name)
-                                    .Paginate(pagination)
-                                    .ToListAsync()
+            Result = await queryable.OrderBy(x => x.Name).Paginate(pagination).ToListAsync()
         };
     }
 
     public override async Task<ActionResponse<State>> GetAsync(int id)
     {
         var state = await _context.States.Include(x => x.Cities).FirstOrDefaultAsync(x => x.Id == id);
+
         if (state is null) return new ActionResponse<State> { WasSucces = false, Message = "Registro no encontrado" };
-        return new ActionResponse<State> { WasSucces = true, Result = state };
+
+        return new ActionResponse<State>
+        {
+            WasSucces = true,
+            Result = state
+        };
     }
 
     public override async Task<ActionResponse<IEnumerable<State>>> GetAsync()
     {
         var states = await _context.States.Include(x => x.Cities).ToListAsync();
-        return new ActionResponse<IEnumerable<State>> { WasSucces = true, Result = states };
+
+        return new ActionResponse<IEnumerable<State>>
+        {
+            WasSucces = true,
+            Result = states
+        };
     }
 }

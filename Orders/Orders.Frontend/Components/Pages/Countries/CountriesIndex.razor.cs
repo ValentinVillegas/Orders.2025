@@ -50,7 +50,7 @@ public partial class CountriesIndex
     {
         int page = state.Page + 1;
         int pageSize = state.PageSize;
-        var url = $"{baseUrl}/paginated?page={page}&recordsnumber={pageSize}" + (!(string.IsNullOrWhiteSpace(Filter)) ? $"?filter={Filter}" : "");
+        var url = $"{baseUrl}/paginated?page={page}&recordsnumber={pageSize}" + (!(string.IsNullOrWhiteSpace(Filter)) ? $"&filter={Filter}" : "");
 
         var responseHttp = await Repository.GetAsync<List<Country>>(url);
 

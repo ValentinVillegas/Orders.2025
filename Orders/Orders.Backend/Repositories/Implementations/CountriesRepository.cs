@@ -17,9 +17,27 @@ public class CountriesRepository : GenericRepository<Country>, ICountriesReposit
         _context = context;
     }
 
+    public override async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Countries.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter)) queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+
+        double count = await queryable.CountAsync();
+
+        return new ActionResponse<int>
+        {
+            WasSucces = true,
+            Result = (int)count
+        };
+    }
+
     public override async Task<ActionResponse<IEnumerable<Country>>> GetAsync(PaginationDTO pagination)
     {
         var queryable = _context.Countries.Include(x => x.States).AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter)) queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+
         return new ActionResponse<IEnumerable<Country>>
         {
             WasSucces = true,
