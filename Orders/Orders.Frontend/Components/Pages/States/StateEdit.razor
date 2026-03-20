@@ -1,3 +1,13 @@
-﻿<h3>StateEdit</h3>
-
-
+﻿@if (state is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            @* <CountryForm Country="country" OnValidSubmit="EditAsync" ReturnAction="Return"/> *@
+            <FormWithName Label="Estado: " Model="state" OnValidSubmit="EditAsync" ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

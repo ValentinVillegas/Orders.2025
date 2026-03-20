@@ -131,25 +131,25 @@ public partial class CountryDetails
         if (isEdit)
         {
             var parameters = new DialogParameters
-            {
-                {"id", id }
-            };
+        {
+            {"id", id }
+        };
 
             dialog = await DialogService.ShowAsync<StateEdit>("Editar Estado", parameters, options);
         }
         else
         {
             var parameters = new DialogParameters
-            {
-                {"CountryId", CountryId }
-            };
+        {
+            {"CountryId", CountryId }
+        };
 
-            dialog = await DialogService.ShowAsync<StateEdit>("Nuevo Estado", parameters, options);
+            dialog = await DialogService.ShowAsync<StateCreate>("Nuevo Estado", parameters, options);
         }
 
         var result = await dialog.Result;
 
-        if (!result!.Canceled)
+        if (result!.Canceled!)
         {
             await LoadTotalRecordsAsync();
             await table.ReloadServerData();

@@ -1,3 +1,6 @@
-﻿<h3>StateCreate</h3>
-
-
+﻿<MudDialog>
+    <DialogContent>
+        @* <CountryForm Country="country" OnValidSubmit="CreateAsync" ReturnAction="Return"/> *@
+        <FormWithName Label="Nombre: " Model="state" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+    </DialogContent>
+</MudDialog>
