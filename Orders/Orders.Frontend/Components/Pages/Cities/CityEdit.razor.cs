@@ -4,11 +4,11 @@ using Orders.Frontend.Repositories;
 using Orders.Shared.Entities;
 using System.Net;
 
-namespace Orders.Frontend.Components.Pages.States;
+namespace Orders.Frontend.Components.Pages.Cities;
 
-public partial class StateEdit
+public partial class CityEdit
 {
-    private State? state;
+    private City? city;
 
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
@@ -18,13 +18,13 @@ public partial class StateEdit
 
     protected override async Task OnInitializedAsync()
     {
-        var responseHttp = await Repository.GetAsync<State>($"api/states/{Id}");
+        var responseHttp = await Repository.GetAsync<City>($"api/cities/{Id}");
 
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                NavigationManager.NavigateTo("/countries");
+                NavigationManager.NavigateTo("/states");
             }
             else
             {
@@ -34,27 +34,27 @@ public partial class StateEdit
         }
         else
         {
-            state = responseHttp.Response;
+            city = responseHttp.Response;
         }
     }
 
     private async Task EditAsync()
     {
-        var responseHttp = await Repository.PutAsync($"api/states", state);
+        var responseHttp = await Repository.PutAsync("api/cities", city);
 
         if (responseHttp.Error)
         {
-            var messageError = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(messageError!, Severity.Error);
+            var message = await responseHttp.GetErrorMessageAsync();
+            Snackbar.Add($"{message}", Severity.Error);
             return;
         }
 
         Return();
-        Snackbar.Add("Registro actualizado correctamente.", Severity.Success);
+        Snackbar.Add("Registro modificado con éxito", Severity.Success);
     }
 
     private void Return()
     {
-        NavigationManager.NavigateTo($"/countries/details/{state!.CountryId}");
+        NavigationManager.NavigateTo($"/states/details/{city!.StateId}");
     }
 }
