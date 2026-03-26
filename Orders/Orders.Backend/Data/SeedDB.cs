@@ -1,15 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Orders.Backend.UnitsOfWork.Interfaces;
 using Orders.Shared.Entities;
+using Orders.Shared.Enums;
 
 namespace Orders.Backend.Data;
 
 public class SeedDB
 {
     private readonly DataContext _context;
+    private readonly IUsersUnitOfWork _usersUnitOfWork;
 
-    public SeedDB(DataContext context)
+    public SeedDB(DataContext context, IUsersUnitOfWork usersUnitOfWork)
     {
         _context = context;
+        _usersUnitOfWork = usersUnitOfWork;
     }
 
     public async Task SeedDBAsync()
@@ -18,6 +22,9 @@ public class SeedDB
         await CheckCountriesFullAsync(); //Agrega paises a la base de datos
         await CheckCountriesAsync(); //Agrega paises a la base de datos
         await CheckCategoriesAsync(); //Agrega categorias ala base de datos
+        await CheckRolesAsync();
+        //await CheckUserAsync("1010", "Juan", "Zuluaga", "zulu@yopmail.com", "322 311 4620", "Calle Luna Calle Sol", UserType.Admin);
+        await CheckUserAsync("1010", "Valentín", "Villegas", "prodpan@yopmail.com", "8124756698", "Calle Luna Calle Sol", UserType.Admin);
     }
 
     public async Task CheckCountriesFullAsync()
@@ -65,5 +72,37 @@ public class SeedDB
 
             await _context.SaveChangesAsync();
         }
+    }
+
+    private async Task CheckRolesAsync()
+    {
+        await _usersUnitOfWork.CheckRoleAsync(UserType.Admin.ToString());
+        await _usersUnitOfWork.CheckRoleAsync(UserType.User.ToString());
+    }
+
+    private async Task<User> CheckUserAsync(string document, string firstName, string lastName, string email, string phone, string address, UserType userType)
+    {
+        var user = await _usersUnitOfWork.GetUserAsync(email);
+
+        if (user == null)
+        {
+            user = new User
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                UserName = email,
+                PhoneNumber = phone,
+                Adress = address,
+                Document = document,
+                City = _context.Cities.FirstOrDefault(),
+                UserType = userType
+            };
+
+            await _usersUnitOfWork.AddUserAsync(user, "123456");
+            await _usersUnitOfWork.AddUserToRoleAsync(user, userType.ToString());
+        }
+
+        return user;
     }
 }
