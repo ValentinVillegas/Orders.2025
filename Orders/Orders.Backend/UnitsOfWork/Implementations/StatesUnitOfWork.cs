@@ -22,4 +22,6 @@ public class StatesUnitOfWork : IStatesUnitOfWork
     public async Task<ActionResponse<State>> GetAsync(int id) => await _statesRepository.GetAsync(id);
 
     public async Task<ActionResponse<IEnumerable<State>>> GetAsync() => await _statesRepository.GetAsync();
+
+    public async Task<IEnumerable<State>> GetComboAsync(int countryId) => await _statesRepository.GetComboAsync(countryId);
 }

@@ -9,4 +9,6 @@ public interface ICitiesRepository
     Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
 
     Task<ActionResponse<IEnumerable<City>>> GetAsync(PaginationDTO pagination);
+
+    Task<IEnumerable<City>> GetComboAsync(int stateId);
 }

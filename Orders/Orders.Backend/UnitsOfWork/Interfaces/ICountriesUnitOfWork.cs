@@ -13,4 +13,6 @@ public interface ICountriesUnitOfWork
     Task<ActionResponse<IEnumerable<Country>>> GetAsync();
 
     Task<ActionResponse<Country>> GetAsync(int id);
+
+    Task<IEnumerable<Country>> GetComboAsync();
 }

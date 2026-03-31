@@ -52,6 +52,13 @@ public class CountriesController : GenericController<Country>
         if (action.WasSucces) return Ok(action.Result);
         return BadRequest(action.Message);
     }
+
+    [AllowAnonymous]
+    [HttpGet("combo")]
+    public async Task<IActionResult> GetActionAsync()
+    {
+        return Ok(await _countriesUnitOfWork.GetComboAsync());
+    }
 }
 
 //public class CountriesController : ControllerBase

@@ -9,4 +9,6 @@ public interface ICategoriesUnitOfWork
     Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
 
     Task<ActionResponse<IEnumerable<Category>>> GetAsync(PaginationDTO pagination);
+
+    Task<IEnumerable<Category>> GetComboAsync();
 }

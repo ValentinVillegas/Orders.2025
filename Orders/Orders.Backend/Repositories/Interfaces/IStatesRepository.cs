@@ -13,4 +13,6 @@ public interface IStatesRepository
     Task<ActionResponse<IEnumerable<State>>> GetAsync();
 
     Task<ActionResponse<State>> GetAsync(int id);
+
+    Task<IEnumerable<State>> GetComboAsync(int countryId);
 }

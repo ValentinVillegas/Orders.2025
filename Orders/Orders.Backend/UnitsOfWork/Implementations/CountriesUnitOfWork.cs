@@ -22,4 +22,6 @@ public class CountriesUnitOfWork : ICountriesUnitOfWork
     public async Task<ActionResponse<IEnumerable<Country>>> GetAsync() => await _countriesRepository.GetAsync();
 
     public async Task<ActionResponse<Country>> GetAsync(int id) => await _countriesRepository.GetAsync(id);
+
+    public async Task<IEnumerable<Country>> GetComboAsync() => await _countriesRepository.GetComboAsync();
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Orders.Backend.UnitsOfWork.Implementations;
 using Orders.Backend.UnitsOfWork.Interfaces;
 using Orders.Shared.DTOs;
 using Orders.Shared.Entities;
@@ -49,5 +50,12 @@ public class StatesController : GenericController<State>
         var action = await _statesUnitOfWoork.GetAsync(id);
         if (action.WasSucces) return Ok(action.Result);
         return BadRequest(action.Message);
+    }
+
+    [AllowAnonymous]
+    [HttpGet("combo/{countryId:int}")]
+    public async Task<IActionResult> GetActionAsync(int countryId)
+    {
+        return Ok(await _statesUnitOfWoork.GetComboAsync(countryId));
     }
 }
