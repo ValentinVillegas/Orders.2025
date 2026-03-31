@@ -93,7 +93,7 @@ public class SeedDB
                 Email = email,
                 UserName = email,
                 PhoneNumber = phone,
-                Adress = address,
+                Address = address,
                 Document = document,
                 City = _context.Cities.FirstOrDefault(),
                 UserType = userType

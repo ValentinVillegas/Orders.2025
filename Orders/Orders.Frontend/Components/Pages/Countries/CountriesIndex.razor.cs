@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Orders.Frontend.Components.Shared;
@@ -7,6 +8,7 @@ using System.Net;
 
 namespace Orders.Frontend.Components.Pages.Countries;
 
+[Authorize(Roles = "Admin")]
 public partial class CountriesIndex
 {
     private List<Country>? countries;
@@ -20,7 +22,7 @@ public partial class CountriesIndex
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private IDialogService DialogService { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
-    [Inject] private NavigationManager NavigationManaager { get; set; } = null!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
@@ -143,7 +145,7 @@ public partial class CountriesIndex
         {
             if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                NavigationManaager.NavigateTo("/countries");
+                NavigationManager.NavigateTo("/countries");
             }
             else
             {
@@ -161,6 +163,6 @@ public partial class CountriesIndex
 
     private void ShowStates(Country country)
     {
-        NavigationManaager.NavigateTo($"/countries/details/{country.Id}");
+        NavigationManager.NavigateTo($"/countries/details/{country.Id}");
     }
 }

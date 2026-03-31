@@ -1,6 +1,15 @@
 ﻿@page "/"
 
-<PageTitle>Orders</PageTitle>
+<PageTitle>Inicio</PageTitle>
 
-<MudText Typo="Typo.h3" GutterBottom="true">!Bien Venido!</MudText>
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <MudText Typo="Typo.h3" Class="m-2" GutterBottom="true">Hola @context.User.Identity!.Name</MudText>
+    </Authorized>
+
+    <NotAuthorized>
+        <MudText Typo="Typo.h3" Class="m-2" GutterBottom="true">Eres usuario anónimo</MudText>
+    </NotAuthorized>
+</AuthorizeView>
+
 <MudText Class="mb-8">Welcome to your new app, powered by MudBlazor and the .NET 9 Template!</MudText>

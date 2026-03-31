@@ -24,7 +24,7 @@ public class User : IdentityUser
     [Display(Name = "Dirección")]
     [MaxLength(200, ErrorMessage = "El campo {0} debe contener máximo {1} caractéres.")]
     [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-    public string Adress { get; set; } = null!;
+    public string Address { get; set; } = null!;
 
     [Display(Name = "Foto")]
     public string? Photo { get; set; }
