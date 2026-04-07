@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Orders.Backend.Data;
+using Orders.Backend.Helpers;
 using Orders.Backend.Repositories.Implementations;
 using Orders.Backend.Repositories.Interfaces;
 using Orders.Backend.UnitsOfWork.Implementations;
@@ -38,6 +39,7 @@ builder.Services.AddScoped(typeof(ICategoriesUnitOfWork), typeof(CategoriesUnitO
 builder.Services.AddScoped(typeof(ICategoriesRepository), typeof(CategoriesRepository));
 builder.Services.AddScoped(typeof(IUsersUnitOfWork), typeof(UsersUnitOfWork));
 builder.Services.AddScoped(typeof(IUsersRepository), typeof(UsersRepository));
+builder.Services.AddScoped(typeof(IFileStorage), typeof(FileStorage));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
