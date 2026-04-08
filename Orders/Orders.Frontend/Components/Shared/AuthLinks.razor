@@ -1,7 +1,7 @@
 ﻿<AuthorizeView>
     <Authorized>
         <MudContainer Style="width : 18rem;">
-            @if (string.IsNullOrEmpty(photoUser))
+            @if (!string.IsNullOrEmpty(photoUser))
             {
                 <MudContainer Class="d-flex justify-content-center mb-3">
                     <MudBadge Color="Color.Success" Overlap="true" Bordered="true" Class="position-relative">

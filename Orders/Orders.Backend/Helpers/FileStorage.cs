@@ -9,7 +9,9 @@ public class FileStorage : IFileStorage
 
     public FileStorage(IConfiguration configuration)
     {
-        _connectionString = configuration.GetConnectionString("AzureStorage")!;
+        //_connectionString = configuration.GetConnectionString("AzureStorage")!;
+        _connectionString = configuration["AzureStorage"]!;
+        //Console.WriteLine("");
     }
 
     public async Task RemoveFileAsync(string path, string containerName)

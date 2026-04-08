@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 using Orders.Frontend.Components.Pages.Auth;
+using System.Security.Claims;
 
 namespace Orders.Frontend.Components.Shared;
 
@@ -18,7 +19,8 @@ public partial class AuthLinks
         var authenticationState = await AuthenticationStateTask;
         var claims = authenticationState.User.Claims.ToList();
         var photoClaim = claims.FirstOrDefault(x => x.Type == "Photo");
-        var nameClaim = claims.FirstOrDefault(x => x.Type == "UserName");
+        //var nameClaim = claims.FirstOrDefault(x => x.Type == "UserName");
+        var nameClaim = claims.FirstOrDefault(x => x.Type == ClaimTypes.Name);
 
         if (photoClaim is not null) photoUser = photoClaim.Value;
     }
