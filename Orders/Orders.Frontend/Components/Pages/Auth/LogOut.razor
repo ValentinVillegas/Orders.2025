@@ -1,3 +1,12 @@
-﻿<h3>LogOut</h3>
+﻿<MudDialog>
+    <DialogContent>
+        <MudText Typo="Typo.h5" Class="mb-3">¿Estás seguro que deseas cerrar sesión?</MudText>
+        <MudText Typo="Typo.body2">Si cierras sesión, deberás identificarte nuevamente con tus credenciales.</MudText>
+    </DialogContent>
 
-
+    <DialogActions>
+        <MudButton Variant="Variant.Outlined" Color="Color.Tertiary" OnClick="CancelAction">Cancelar</MudButton>
+        <MudSpacer/>
+        <MudButton Variant="Variant.Outlined" Color="Color.Error" OnClick="LogOutActionAsync">Cerrar Sesión </MudButton>
+    </DialogActions>
+</MudDialog>

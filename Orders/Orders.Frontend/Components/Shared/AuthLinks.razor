@@ -3,7 +3,7 @@
         <MudContainer Style="width : 18rem;">
             @if (!string.IsNullOrEmpty(photoUser))
             {
-                <MudContainer Class="d-flex justify-content-center mb-3">
+                <MudContainer Class="d-flex justify-center justify-content-center mt-3 mb-3">
                     <MudBadge Color="Color.Success" Overlap="true" Bordered="true" Class="position-relative">
                         <MudAvatar Size="Size.Large" Class="mb-3 mx-auto d-block">
                             <MudImage Src="@photoUser"></MudImage>
@@ -13,7 +13,7 @@
             }
 
             <MudText Typo="Typo.body1" Align="Align.Center">Hola! @context.User.Identity!.Name</MudText>
-            <MudPaper Elevation="1" Class="d-flex justify-content-center align-content-center">
+            <MudPaper Elevation="0" Class="d-flex justify-content-center align-content-center">
                 <MudList T="object">
                     <MudListItem>
                         <MudButton Variant="Variant.Text" OnClick="EditAction">Editar Perfíl <MudIcon Icon="@Icons.Material.Filled.Person"/></MudButton>
