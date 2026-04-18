@@ -34,4 +34,8 @@ public class UsersUnitOfWork : IUsersUnitOfWork
     public async Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword) => await _usersRepository.ChangePasswordAsync(user, currentPassword, newPassword);
 
     public async Task<IdentityResult> UpdateUserAsync(User user) => await _usersRepository.UpdateUserAsync(user);
+
+    public Task<string> GenerateEmailConfirmationTokenAsync(User user) => _usersRepository.GenerateEmailConfirmationTokeAsync(user);
+
+    public Task<IdentityResult> ConfirmEmailAsync(User user, string token) => _usersRepository.ConfirmEmailAsync(user, token);
 }

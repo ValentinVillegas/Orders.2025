@@ -25,4 +25,8 @@ public interface IUsersRepository
     Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword);
 
     Task<IdentityResult> UpdateUserAsync(User user);
+
+    Task<string> GenerateEmailConfirmationTokeAsync(User user);
+
+    Task<IdentityResult> ConfirmEmailAsync(User user, string token);
 }
