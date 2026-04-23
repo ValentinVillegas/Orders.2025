@@ -35,7 +35,11 @@ public class UsersUnitOfWork : IUsersUnitOfWork
 
     public async Task<IdentityResult> UpdateUserAsync(User user) => await _usersRepository.UpdateUserAsync(user);
 
-    public Task<string> GenerateEmailConfirmationTokenAsync(User user) => _usersRepository.GenerateEmailConfirmationTokeAsync(user);
+    public async Task<string> GenerateEmailConfirmationTokenAsync(User user) => await _usersRepository.GenerateEmailConfirmationTokeAsync(user);
 
-    public Task<IdentityResult> ConfirmEmailAsync(User user, string token) => _usersRepository.ConfirmEmailAsync(user, token);
+    public async Task<IdentityResult> ConfirmEmailAsync(User user, string token) => await _usersRepository.ConfirmEmailAsync(user, token);
+
+    public async Task<string> GeneratePasswordResetTokenAsync(User user) => await _usersRepository.GeneratePasswordResetTokenAsync(user);
+
+    public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password) => await _usersRepository.ResetPasswordAsync(user, token, password);
 }
